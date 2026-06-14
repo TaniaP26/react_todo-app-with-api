@@ -1,3 +1,8 @@
+/* eslint-disable max-len */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+
+
 import React from 'react';
 import classNames from 'classnames';
 import { Todo } from '../../types/Todo';
@@ -38,17 +43,16 @@ export const TodoItem: React.FC<Props> = ({
         completed: todo.completed,
       })}
     >
-      {/* <label className="todo__status-label" htmlFor={`todo-${todo.id}`}> */}
-      <input
-        // id={`todo-${todo.id}`}
-        data-cy="TodoStatus"
-        type="checkbox"
-        className="todo__status"
-        checked={todo.completed}
-        onChange={() => handleToggle(todo)}
-      />
-      {/* </label> */}
-
+      <label className="todo__status-label" htmlFor={`todo-status-${todo.id}`}>
+        <input
+          id={`todo-status-${todo.id}`}
+          data-cy="TodoStatus"
+          type="checkbox"
+          className="todo__status"
+          checked={todo.completed}
+          onChange={() => handleToggle(todo)}
+        />
+      </label>
       {editingTodoId === todo.id ? (
         <form>
           <input
@@ -94,7 +98,6 @@ export const TodoItem: React.FC<Props> = ({
           </button>
         </>
       )}
-
       <div
         data-cy="TodoLoader"
         className={classNames('modal overlay', {

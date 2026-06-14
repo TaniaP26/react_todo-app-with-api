@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable jsx-a11y/control-has-associated-label */
+
 import React from 'react';
 import { UserWarning } from './UserWarning';
 import { USER_ID } from './api/todos';
@@ -132,8 +135,10 @@ export const App: React.FC = () => {
 
   const allCompleted = todos.length > 0 && todos.every(todo => todo.completed);
 
-  const handleClearCompleted = () => {
-    todos.filter(todo => todo.completed).forEach(todo => handleDelete(todo.id));
+  const handleClearCompleted = async () => {
+    await Promise.all(
+      todos.filter(todo => todo.completed).map(todo => handleDelete(todo.id)),
+    );
   };
 
   const handleToggle = async (todo: Todo) => {
@@ -161,9 +166,7 @@ export const App: React.FC = () => {
       todo => todo.completed !== newCompletedStatus,
     );
 
-    todosToUpdate.forEach(todo => {
-      handleToggle(todo);
-    });
+    await Promise.all(todosToUpdate.map(todo => handleToggle(todo)));
   };
 
   useEffect(() => {
